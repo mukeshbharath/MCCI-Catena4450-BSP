@@ -13,8 +13,9 @@ In order to successfully build and upload/test the code to the Catena boards, pl
 - [Install the MCCI SAMD board support library](#install-the-mcci-samd-board-support-library)
 - [Install Catena Drivers](#install-catena-drivers)
 - [Build and Download](#build-and-download)
-    -[Catena 4450 basic LED blink test](#catena-4450-basic-led-blink-test)
-    -[Catena 4450 sensor and LoRaWAN configure test](#catena-4450-sensor-and-lorawan-configure-test)
+    - [Catena 4450 basic LED blink test](#catena-4450-basic-led-blink-test)
+    - [Catena 4450 sensor and LoRaWAN configure test](#catena-4450-sensor-and-lorawan-configure-test)
+    - [Disabling USB Sleep (Optional)](#disabling-usb-sleep-optional)
 
 ## Install Arduino IDE
 Download the respective installer and install the latest release of Arduino IDE from [Arduino IDE](https://www.arduino.cc/en/Main/Software)
@@ -146,5 +147,20 @@ If the code builds and upload successfully, go on and test the other sketches fo
 ### Catena 4450 sensor and LoRaWAN configure test
 
 Clone/download the directory `catena4450m101sensor` and compile and upload the sketch.
+
+### Disabling USB Sleep (Optional)
+The `catena4450m101_sensor` sketch uses the SAMD "deep sleep" mode in order to reduce power. This works, but it's inconvenient in development. See **Deep Sleep and USB** under **Notes**, below, for a technical explanation. 
+
+In order to keep the Catena from falling asleep while connected to USB, make the following change.
+
+Search for
+```
+if (Serial.dtr() || fHasPower1)
+```
+and change it to
+```
+if (Serial.dtr() | fHasPower1 || true)
+```
+![USB Sleep Fix](./code-for-sleep-usb-adjustment.png)
 
 
