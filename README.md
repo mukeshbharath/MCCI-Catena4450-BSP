@@ -219,12 +219,13 @@ Then enter the following commands in the serial monitor, substituting your _`Dev
 `lorawan configure appkey` _`AppKey`_  
 `lorawan configure join 0`
 
-close the serial monitor disconnect the catena and reboot it once and connect to the port and open serial
+Close the serial monitor, disconnect the catena and reboot it once.
+
+Now connect to the port and open serial monitor
+`lorawan configure join 1`
+
 After each command you will see an `OK`.
 
 ![provisioned](./provisioned.png)
 
-
-Then reboot your Catena (using the reset button on the upper board).
-
-
+Now we can see the catena 4450 transmits data to the console for every 6 mins.
