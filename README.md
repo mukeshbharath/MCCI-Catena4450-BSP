@@ -17,6 +17,11 @@ In order to successfully build and upload/test the code to the Catena boards, pl
     - [Catena 4450 sensor and LoRaWAN configure test](#catena-4450-sensor-and-lorawan-configure-test)
         - [Load the sketch into the Catena](#load-the-sketch-into-the-catena)
         - [Provision your Catena 4450](#provision-your-catena-4450)
+- [Notes](#notes)
+    - [Data Format](#data-format)
+    - [Unplugging the USB Cable while running on batteries](#unplugging-the-usb-cable-while-running-on-batteries)
+    - [Deep sleep and USB](#deep-sleep-and-usb)
+    - [gitboot.sh and the other sketches](#gitbootsh-and-the-other-sketches)
 
 ## Install Arduino IDE
 Download the respective installer and install the latest release of Arduino IDE from [Arduino IDE](https://www.arduino.cc/en/Main/Software)
@@ -155,7 +160,7 @@ Make sure the correct port is selected in `Tools`>`Port`.
 
 Load the sketch into the Catena using `Sketch`>`Upload` and move on to provisioning.
 
-### Provision your Catena 4450
+## Provision your Catena 4450
 This can be done with any terminal emulator, but it's easiest to do it with the serial monitor (`Tools`>`Serial Monitor`) built into the Arduino IDE or with the equivalent monitor that's part of the Visual Micro IDE.
 
 #### Check platform provisioning
@@ -215,3 +220,18 @@ After each command you will see an `OK`.
 ![provisioned](./provisioned.png)
 
 Now we can see the catena 4450 transmits data to the console for every 6 mins.
+
+## Notes
+
+### Data Format
+Refer to the [Protocol Description](../extra/catena-message-0x14-format.md) in the `extras` directory for information on how data is encoded.
+
+### Unplugging the USB Cable while running on batteries
+The Catena 4450 comes with a rechargable LiPo battery. This allows you to unplug the USB cable after booting the Catena 4450 without causing the Catena 4450 to restart.
+
+Unfortunately, the Arudino USB drivers for the Catena 4450 do not distinguish between cable unplug and USB suspend. Any `Serial.print()` operation referring to the USB port will hang if the cable is unplugged after being used during a boot. The easiest work-around is to reboot the Catena after unplugging the USB cable. You can avoid this by using the Arduino UI to turn off DTR before unplugging the cable... but then you must remember to turn DTR back on. This is very fragile in practice.
+
+As with any Feather M0, double-pressing the RESET button will put the Feather into download mode. To confirm this, the red light will flicker rapidly. You may have to temporarily change the download port using `Tools`>`Port`, but once the port setting is correct, you should be able to download no matter what state the board was in. 
+
+### gitboot.sh and the other sketches
+The sketches in other directories in this tree are for engineering use at MCCI. `git-boot.sh` does not necessarily install all the required libraries needed for building them. However, all the libraries should be available from https://github.com/mcci-catena/.
