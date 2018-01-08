@@ -79,16 +79,31 @@ For time being please use the Arduino driver which supports MCCI Catena boards f
 ### Procedure for installing the arduino driver
 1. Go to Device Manager (Press Windows key + R, under run command type `devmgmt.msc`).
 2. Under Device Manager, we can find Catena 4450 under `Other devices`.
-<img src="other-devices.PNG" width=75% height=75%>
+<img src="https://github.com/mukeshbharath/MCCI-Catena4450-BSP/blob/master/Other-devices.png" width=75% height=75%>
 
 3. Right click on Catena 4450 and select `Update Driver Software...`
+<img src="https://github.com/mukeshbharath/MCCI-Catena4450-BSP/blob/master/right-click-catena4450.png" width=75% height=75%>
+
 4. Under How do you want to search option, Click the option `Browse my computer for driver software`.
+<img src="https://github.com/mukeshbharath/MCCI-Catena4450-BSP/blob/master/Update-driver-software.png" width=75% height=75%>
+
 5. For Browse for driver software option, select `Let me pick from a list of device drivers on my computer`.
+<img src="https://github.com/mukeshbharath/MCCI-Catena4450-BSP/blob/master/Let-me-pick.png" width=75% height=75%>
+
 6. Select device type `Ports (COM & LPT)`.
-6. Click `Have disk`.
-7. Copy the path `C:\Program Files (x86)\Arduino\drivers` browse field.
-8. Select `Adafruit circuit playground` and give `Next`.
-9. Driver will get install and the device could be seen under section `Ports` with port number.
+<img src="https://github.com/mukeshbharath/MCCI-Catena4450-BSP/blob/master/Select-device-type.png" width=75% height=75%>
+
+7. Click `Have disk`.
+<img src="https://github.com/mukeshbharath/MCCI-Catena4450-BSP/blob/master/Have-disk.png" width=75% height=75%>
+
+8. Copy the path `C:\Program Files (x86)\Arduino\drivers` browse field.
+<img src="https://github.com/mukeshbharath/MCCI-Catena4450-BSP/blob/master/Instal-from-disk.png" width=75% height=75%>
+
+9. Select `Adafruit circuit playground` and give `Next`.
+<img src="https://github.com/mukeshbharath/MCCI-Catena4450-BSP/blob/master/Select-device-driver-to-install.png" width=75% height=75%>
+
+10. Driver will get install and the device could be seen under section `Ports` with port number.
+<img src="https://github.com/mukeshbharath/MCCI-Catena4450-BSP/blob/master/post-driver-installation.png" width=75% height=75%>
 
 ## Build and Download
 
