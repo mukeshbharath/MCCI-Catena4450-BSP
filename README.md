@@ -163,4 +163,68 @@ if (Serial.dtr() | fHasPower1 || true)
 ```
 ![USB Sleep Fix](./code-for-sleep-usb-adjustment.png)
 
+## Load the sketch into the Catena
+
+Make sure the correct port is selected in `Tools`>`Port`. 
+
+Load the sketch into the Catena using `Sketch`>`Upload` and move on to provisioning.
+
+## Provision your Catena 4450
+This can be done with any terminal emulator, but it's easiest to do it with the serial monitor (`Tools`>`Serial Monitor`) built into the Arduino IDE or with the equivalent monitor that's part of the Visual Micro IDE.
+
+### Check platform provisioning
+
+![Newline](./serial-monitor-newline.png)
+
+At the bottom righ side of the serial monitor window, set the dropdown to `Newline` and `115200 baud`.
+
+Enter the following command, and press enter:
+```
+system configure platformguid
+```
+If the Catena is functioning at all, you'll either get an error message, or you'll get a long number like:
+```
+82BF2661-70CB-45AE-B620-CAF695478BC1
+```
+(Several numbers are possible.)
+
+![platformguid](./system-configure-platformguid.png)
+
+![platform number](./platform-number.png)
+
+If you get an error message, please follow the **Platform Provisioning** instructions. Othewise, skip to **LoRAWAN Provisioning**.
+
+### Platform Provisioning
+The Catena 4450 has a number of build options. We have a single firmware image to support the various options. The firmware figures out the build options by reading data stored in the FRAM, so if the factory settings are not present or have been lost, you need to do the following.
+
+If your Catena 4450 is fresh from the factory, you will need to enter the following commands.
+
+`system configure syseui` _`serialnumber`_
+
+You will find the serial number on the Catena 4450 assembly. If you can't find a serial number, please contact MCCI for assistance.
+
+Continue by entering the following commands.
+```
+system configure operatingflags 1
+system configure platformguid 82BF2661-70CB-45AE-B620-CAF695478BC1
+```
+
+### LoRaWAN Provisioning
+If you're using The Things Network, go to https://console.thethingsnetwork.org and follow the instructions to add a device to your application. This will let you input the devEUI (we suggest using the serial number), and get the AppEUI and the Application Key. For other networks, follow their instructions for determining the devEUI and getting the AppEUI and AppKey.
+
+Then enter the following commands in the serial monitor, substituting your _`DevEUI`_, _`AppEUI`_, and _`AppKey`_, one at a time.
+
+`lorawan configure deveui` _`DevEUI`_  
+`lorawan configure appeui` _`AppEUI`_  
+`lorawan configure appkey` _`AppKey`_  
+`lorawan configure join 0`
+
+close the serial monitor disconnect the catena and reboot it once and connect to the port and open serial
+After each command you will see an `OK`.
+
+![provisioned](./provisioned.png)
+
+
+Then reboot your Catena (using the reset button on the upper board).
+
 
