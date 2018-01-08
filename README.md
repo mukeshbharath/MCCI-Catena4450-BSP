@@ -11,7 +11,6 @@ In order to successfully build and upload/test the code to the Catena boards, pl
 - [Installing the Required MCCI Catena Libraries](#installing-the-required-mcci-catena-libraries)
     - [List of required libraries](#list-of-required-libraries)
 - [Install the MCCI SAMD board support library](#install-the-mcci-samd-board-support-library)
-    - [Additional board packages required](#additional-board-packages-required)
 - [Install Catena Drivers](#install-catena-drivers)
 - [Build and Download](#build-and-download)
 
@@ -81,15 +80,6 @@ Go to `File>Preferences>Settings` in the Arduino IDE and add `https://github.com
 Next, open the board manager. `Tools>Board:...`, and get up to the top of the menu that pops out -- it will give you a list of boards. Search for `MCCI` in the search box and select `MCCI Catena SAMD Boards`. An `[Install]` button will appear to the right; click it.
 
 Then go to `Tools>Board:...` and scroll to the bottom. You should see `Catena 4450`; select that.
-
-### Additional board packages required
-
-Due to a bug, you must install two additonal packages in order to be able to download code.
-
-Go to Boards Manager (`Tools>Board:...>Boards Manager...`) and search for `SAM`. Install:
-
-- **Arduino SAM Boards (32-bits ARM Cortex M3)** by **Arduino**
-- **Arduino SAMD Boards (32-bits ARM Cortex M0+)** by **Arduino**
 
 ## Install Catena Drivers
 Catena board drivers for installation are under development and will be released shortly.
