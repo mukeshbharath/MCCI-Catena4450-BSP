@@ -6,8 +6,8 @@ This repository contains Boards Manager file(.json) and the related packages for
 The packages are compressed files(.zip) from [ArduinoCore-samd](https://github.com/mcci-catena/ArduinoCore-samd) repository.
 
 In order to successfully build and upload/test the code to the Catena boards, please follow these steps:
-- [Install Arduino IDE] (#install-arduino-ide)
-- [Install MCCI Catena BSP] (#install-mcci-catena-4450-bsp)
+- [Install Arduino IDE](#install-arduino-ide)
+- [Install MCCI Catena BSP](#install-mcci-catena-4450-bsp)
 - [Installing the Required MCCI Catena Libraries](#installing-the-required-mcci-catena-libraries)
     - [List of required libraries](#list-of-required-libraries)
 - [Install Catena Drivers] (#install-catena-drivers)
