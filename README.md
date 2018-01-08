@@ -15,7 +15,8 @@ In order to successfully build and upload/test the code to the Catena boards, pl
 - [Build and Download](#build-and-download)
     - [Catena 4450 basic LED blink test](#catena-4450-basic-led-blink-test)
     - [Catena 4450 sensor and LoRaWAN configure test](#catena-4450-sensor-and-lorawan-configure-test)
-    - [Disabling USB Sleep (Optional)](#disabling-usb-sleep-optional)
+        - [Load the sketch into the Catena](#load-the-sketch-into-the-catena)
+        - [Provision your Catena 4450](#provision-your-catena-4450)
 
 ## Install Arduino IDE
 Download the respective installer and install the latest release of Arduino IDE from [Arduino IDE](https://www.arduino.cc/en/Main/Software)
@@ -148,31 +149,16 @@ If the code builds and upload successfully, go on and test the other sketches fo
 
 Clone/download the directory `catena4450m101sensor` and compile and upload the sketch.
 
-### Disabling USB Sleep (Optional)
-The `catena4450m101_sensor` sketch uses the SAMD "deep sleep" mode in order to reduce power. This works, but it's inconvenient in development. See **Deep Sleep and USB** under **Notes**, below, for a technical explanation. 
-
-In order to keep the Catena from falling asleep while connected to USB, make the following change.
-
-Search for
-```
-if (Serial.dtr() || fHasPower1)
-```
-and change it to
-```
-if (Serial.dtr() | fHasPower1 || true)
-```
-![USB Sleep Fix](./code-for-sleep-usb-adjustment.png)
-
-## Load the sketch into the Catena
+#### Load the sketch into the Catena
 
 Make sure the correct port is selected in `Tools`>`Port`. 
 
 Load the sketch into the Catena using `Sketch`>`Upload` and move on to provisioning.
 
-## Provision your Catena 4450
+### Provision your Catena 4450
 This can be done with any terminal emulator, but it's easiest to do it with the serial monitor (`Tools`>`Serial Monitor`) built into the Arduino IDE or with the equivalent monitor that's part of the Visual Micro IDE.
 
-### Check platform provisioning
+#### Check platform provisioning
 
 ![Newline](./serial-monitor-newline.png)
 
@@ -194,7 +180,7 @@ If the Catena is functioning at all, you'll either get an error message, or you'
 
 If you get an error message, please follow the **Platform Provisioning** instructions. Othewise, skip to **LoRAWAN Provisioning**.
 
-### Platform Provisioning
+#### Platform Provisioning
 The Catena 4450 has a number of build options. We have a single firmware image to support the various options. The firmware figures out the build options by reading data stored in the FRAM, so if the factory settings are not present or have been lost, you need to do the following.
 
 If your Catena 4450 is fresh from the factory, you will need to enter the following commands.
@@ -209,7 +195,7 @@ system configure operatingflags 1
 system configure platformguid 82BF2661-70CB-45AE-B620-CAF695478BC1
 ```
 
-### LoRaWAN Provisioning
+#### LoRaWAN Provisioning
 If you're using The Things Network, go to https://console.thethingsnetwork.org and follow the instructions to add a device to your application. This will let you input the devEUI (we suggest using the serial number), and get the AppEUI and the Application Key. For other networks, follow their instructions for determining the devEUI and getting the AppEUI and AppKey.
 
 Then enter the following commands in the serial monitor, substituting your _`DevEUI`_, _`AppEUI`_, and _`AppKey`_, one at a time.
