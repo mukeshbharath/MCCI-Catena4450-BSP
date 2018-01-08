@@ -147,7 +147,7 @@ and `Sketch`>`Upload`.
 <img src="https://github.com/mcci-catena/arduino-boards/blob/master/upload.PNG" width=75% height=75%>
 
 
-<img src="https://github.com/mukeshbharath/MCCI-Catena4450-BSP/blob/master/Upload.PNG" width=100% height=125%>
+<img src="https://github.com/mukeshbharath/MCCI-Catena4450-BSP/blob/master/Upload.PNG" width=75% height=150%>
 
 If the code builds and upload successfully, go on and test the other sketches for the boards.
 
