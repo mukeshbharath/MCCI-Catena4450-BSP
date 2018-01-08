@@ -35,8 +35,9 @@ Revision history:
 
 */
 
-#include <Catena4450.h>
-#include <CatenaRTC.h>
+#include "ThisCatena.h"
+
+
 #include <Catena_Led.h>
 #include <Catena_TxBuffer.h>
 #include <Catena_CommandStream.h>
@@ -49,7 +50,6 @@ Revision history:
 #include <lmic.h>
 #include <hal/hal.h>
 #include <mcciadk_baselib.h>
-#include <delay.h>
 
 #include <cmath>
 #include <type_traits>
@@ -64,7 +64,7 @@ Revision history:
 \****************************************************************************/
 
 using namespace McciCatena;
-using ThisCatena = Catena4450;
+//using ThisCatena = Catena4450;
 
 /* how long do we wait between measurements (in seconds) */
 enum    {
@@ -125,7 +125,11 @@ ThisCatena::LoRaWAN gLoRaWAN;
 StatusLed gLed (ThisCatena::PIN_STATUS_LED);
 
 // the RTC instance, used for sleeping
+#ifdef ARDUINO_ARCH_SAMD
 CatenaRTC gRtc;
+#elif defined(ARDUINO_ARCH_STM32)
+CatenaStm32L0Rtc gRtc;
+#endif
 
 //   The temperature/humidity sensor
 Adafruit_BME280 bme; // The default initalizer creates an I2C connection
@@ -154,34 +158,6 @@ dNdT_getFrac(
         uint32_t delta_ms
         );
 
-
-/*--------------------------------DHT INCLUDES-----------------------------------*/
-#include <Adafruit_AM2315.h>
-
-// Example testing sketch for various DHT humidity/temperature sensors
-// Written by ladyada, public domain
-
-#include "DHT.h"
-
-#define DHTPIN A1     // what pin we're connected to
-
-// Uncomment whatever type you're using!
-//#define DHTTYPE DHT11   // DHT 11 
-#define DHTTYPE DHT22   // DHT 22  (AM2302)
-//#define DHTTYPE DHT21   // DHT 21 (AM2301)
-
-// Connect pin 1 (on the left) of the sensor to +5V
-// NOTE: If using a board with 3.3V logic like an Arduino Due connect pin 1
-// to 3.3V instead of 5V!
-// Connect pin 2 of the sensor to whatever your DHTPIN is
-// Connect pin 4 (on the right) of the sensor to GROUND
-// Connect a 10K resistor from pin 2 (data) to pin 1 (power) of the sensor
-
-// Initialize DHT sensor for normal 16mhz Arduino
-DHT dht(DHTPIN, DHTTYPE);
-bool fDht;
-/*--------------------------------DHT INCLUDES-----------------------------------*/
-
 /*
 
 Name:	setup()
@@ -265,15 +241,10 @@ void setup(void)
                 gCatena.SafePrintf("**** no platform, check provisioning ****\n");
                 flags = 0;
                 }
-/*--------------------------------DHT INITIALIZE-----------------------------------*/
- //if (fHasDHT) {
-  gCatena.SafePrintf("**** Initialising DHT Sensor ****\n");
-  dht.begin();
-  fDht = true;
-// }
-/*-------------------------------------------------------------------*/
+
+
         /* initialize the lux sensor */
-        if (flags & CatenaSamd21::fHasLuxRohm)
+        if (flags & ThisCatena::fHasLuxRohm)
                 {
                 bh1750.begin();
                 fLux = true;
@@ -283,8 +254,7 @@ void setup(void)
                 {
                 fLux = false;
                 }
-/*-------------------------------------------------------------------*/
-/*-------------------------------------------------------------------*/
+
         /* initialize the BME280 */
         if (!bme.begin(BME280_ADDRESS, Adafruit_BME280::OPERATING_MODE::Sleep))
                 {
@@ -295,8 +265,7 @@ void setup(void)
                 {
                 fBme = true;
                 }
-/*-------------------------------------------------------------------*/
-/*-------------------------------------------------------------------*/
+
         /* is it modded? */
         uint32_t modnumber = gCatena.PlatformFlags_GetModNumber(flags);
 
@@ -329,8 +298,7 @@ void setup(void)
                         fHasPower1 = false;
                         }
                 }
-/*-------------------------------------------------------------------*/
-/*-------------------------------------------------------------------*/
+
         /* now, we kick off things by sending our first message */
         gLed.Set(LedPattern::Joining);
 
@@ -459,28 +427,6 @@ void startSendingUplink(void)
         flag |= FlagsSensor2::FlagLux;
         }
 
-  if (fDht)
-        {
-        delay(2000);
-
-        // Reading temperature or humidity takes about 250 milliseconds!
-        // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-        float h = dht.readHumidity();
-        // Read temperature as Celsius
-        float t = dht.readTemperature();
-        // Read temperature as Fahrenheit
-        float f = dht.readTemperature(true);
-
-        gCatena.SafePrintf("DHT - H: %f\t T: %fC\t %fF\n", h, t, f);
-        
-        // Check if any reads failed and exit early (to try again).
-        //if (isnan(h) || isnan(t)) {
-        //  Serial.println("Failed to read from DHT sensor!");
-        //  return;
-        // }
-        flag |= FlagsSensor2::FlagDHT;
-        }
-
   if (fHasPower1)
         {
         uint32_t power1in, power1out;
@@ -594,10 +540,15 @@ static void settleDoneCb(
     )
     {
     uint32_t startTime;
+#if defined(ARDUINO_ARCH_SAMD)
+    const bool fNoSleep = Serial.dtr() || fHasPower1;
+#else
+    const bool fNoSleep = true;
+#endif
 
     // if connected to USB, don't sleep
     // ditto if we're monitoring pulses.
-    if (Serial.dtr() || fHasPower1 || true)
+    if (fNoSleep)
         {
         gLed.Set(LedPattern::Sleeping);
         os_setTimedCallback(
@@ -608,6 +559,7 @@ static void settleDoneCb(
         return;
         }
 
+#if defined(ARDUINO_ARCH_SAMD)
     /* ok... now it's time for a deep sleep */
     gLed.Set(LedPattern::Off);
 
@@ -624,6 +576,7 @@ static void settleDoneCb(
 
     /* and now... we're awake again. trigger another measurement */
     sleepDoneCb(pSendJob);
+#endif // ARDUINO_ARCH_SAMD
     }
 
 static void sleepDoneCb(
