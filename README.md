@@ -13,6 +13,8 @@ In order to successfully build and upload/test the code to the Catena boards, pl
 - [Install the MCCI SAMD board support library](#install-the-mcci-samd-board-support-library)
 - [Install Catena Drivers](#install-catena-drivers)
 - [Build and Download](#build-and-download)
+    -[Catena 4450 basic LED blink test](#catena-4450-basic-led-blink-test)
+    -[Catena 4450 sensor and LoRaWAN configure test](#catena-4450-sensor-and-lorawan-configure-test)
 
 ## Install Arduino IDE
 Download the respective installer and install the latest release of Arduino IDE from [Arduino IDE](https://www.arduino.cc/en/Main/Software)
@@ -123,7 +125,7 @@ Ensure selected board is 'Catena4450' (in the GUI, check that `Tools`>`Board: ".
 
 Select the respective COM port number on `Tools`>`Ports`.
 
-### Catena 4450 Basic LED blink test
+### Catena 4450 basic LED blink test
 
 For testing, you can choose `File`>`Examples`>`01.Basics`>`Blink`
 
@@ -141,6 +143,8 @@ and `Sketch`>`Upload`.
 
 If the code builds and upload successfully, go on and test the other sketches for the boards.
 
-### Catena 4450 - Sensor and LoRaWAN configure test
+### Catena 4450 sensor and LoRaWAN configure test
+
+Clone/download the directory `catena4450m101sensor` and compile and upload the sketch.
 
 
