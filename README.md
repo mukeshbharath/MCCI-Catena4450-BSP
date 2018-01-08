@@ -80,6 +80,7 @@ For time being please use the Arduino driver which supports MCCI Catena boards f
 1. Go to Device Manager (Press Windows key + R, under run command type `devmgmt.msc`).
 2. Under Device Manager, we can find Catena 4450 under `Other devices`.
 <img src="other-devices.PNG" width=75% height=75%>
+
 3. Right click on Catena 4450 and select `Update Driver Software...`
 4. Under How do you want to search option, Click the option `Browse my computer for driver software`.
 5. For Browse for driver software option, select `Let me pick from a list of device drivers on my computer`.
