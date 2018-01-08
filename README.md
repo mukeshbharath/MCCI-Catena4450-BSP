@@ -10,7 +10,7 @@ In order to successfully build and upload/test the code to the Catena boards, pl
 - [Install MCCI Catena BSP](#install-mcci-catena-4450-bsp)
 - [Installing the Required MCCI Catena Libraries](#installing-the-required-mcci-catena-libraries)
     - [List of required libraries](#list-of-required-libraries)
-- [Install Catena Drivers] (#install-catena-drivers)
+- [Install Catena Drivers](#install-catena-drivers)
 - [Build and Download](#build-and-download)
 
 ## Install Arduino IDE
