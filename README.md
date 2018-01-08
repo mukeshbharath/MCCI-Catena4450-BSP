@@ -112,6 +112,8 @@ Ensure selected board is 'Catena4450' (in the GUI, check that `Tools`>`Board: ".
 
 <img src="https://github.com/mcci-catena/arduino-boards/blob/master/chooseboard.PNG" width=75% height=75%>
 
+Select the respective COM port number.
+
 For testing, you can choose `File`>`Examples`>`01.Basics`>`Blink`
 
 <img src="https://github.com/mcci-catena/arduino-boards/blob/master/ex.PNG" width=75% height=75%>
