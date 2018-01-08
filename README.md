@@ -123,6 +123,8 @@ Ensure selected board is 'Catena4450' (in the GUI, check that `Tools`>`Board: ".
 
 Select the respective COM port number on `Tools`>`Ports`.
 
+### Catena 4450 Basic LED blink test
+
 For testing, you can choose `File`>`Examples`>`01.Basics`>`Blink`
 
 <img src="https://github.com/mcci-catena/arduino-boards/blob/master/ex.PNG" width=75% height=75%>
@@ -135,6 +137,10 @@ and `Sketch`>`Upload`.
 
 <img src="https://github.com/mcci-catena/arduino-boards/blob/master/upload.PNG" width=75% height=75%>
 
-<img src=".PNG" width=75% height=75%>
+<img src="https://github.com/mukeshbharath/MCCI-Catena4450-BSP/blob/master/Upload.PNG" width=75% height=75%>
 
 If the code builds and upload successfully, go on and test the other sketches for the boards.
+
+### Catena 4450 - Sensor and LoRaWAN configure test
+
+
