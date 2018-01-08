@@ -14,7 +14,7 @@ In order to successfully build and upload/test the code to the Catena boards, pl
 - [Build and Download](#build-and-download)
 
 ## Install Arduino IDE
-Download the respective installer and install the latest release of Arduino IDE from [Arduino IDE] (https://www.arduino.cc/en/Main/Software)
+Download the respective installer and install the latest release of Arduino IDE from [Arduino IDE](https://www.arduino.cc/en/Main/Software)
 
 ## Install MCCI Catena 4450 BSP
 Start Arduino IDE and navigate to `File`>`Preferences` menu.
@@ -49,7 +49,7 @@ The script `git-boot.sh` in this directory will get all the things you need.
 It's easy to run, provided you're on Windows, macOS, or Linux, and provided you have `git` installed. We tested on Windows with git bash from https://git-scm.org, on macOS 10.11.3 with the git and bash shipped by Apple, and on Ubuntu 16.0.4 LTS (64-bit) with the built-in bash and git from `apt-get install git`.
 
 ```shell
-$ cd Catena4410-Sketches/catena4450m101_sensor
+//Move to the location where you have saved git-boot.sh and git-repos.dat and run the following command
 $ ./git-boot.sh
 ```
 
