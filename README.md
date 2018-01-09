@@ -54,7 +54,7 @@ After adding the URL, go to `Tools`>`Board:`--->`Boards Manager...` and install 
 *note: unlike certain BSPs, there’s no need to install the additional tools; this kit takes care of all that.*
 
 ## Installing the Required MCCI Catena Libraries
-The script `git-boot.sh` in this directory will get all the things you need.
+The script `git-boot.sh` in this directory will get all the things you need. please download the files `git-boot.sh` and `git-repos.dat` and save it in your machine.
 
 It's easy to run, provided you're on Windows, macOS, or Linux, and provided you have `git` installed. We tested on Windows with git bash from https://git-scm.org, on macOS 10.11.3 with the git and bash shipped by Apple, and on Ubuntu 16.0.4 LTS (64-bit) with the built-in bash and git from `apt-get install git`.
 
